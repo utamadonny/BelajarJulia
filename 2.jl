@@ -1,3 +1,4 @@
+#print bilangan
 using Printf
 using Statistics
 
