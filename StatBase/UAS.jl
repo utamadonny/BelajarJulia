@@ -44,7 +44,7 @@ sun=D[1:200,:Sunspots]
 plot(temp,label="Rataaan Temperature")
 
 # ╔═╡ 6759c317-5cb8-4b89-a8fa-7971ef2d7fe4
-plot!(sun,color=:green,label="Sunspots")
+plot(sun,color=:green,label="Sunspots")
 
 # ╔═╡ 8fa6401e-2722-487e-b1d2-fc90ac799f9e
 #Autocorrelation (ACF)
@@ -72,6 +72,14 @@ ccf=crosscor(temp,sun)
 plot(ccf,color=:red,label="crosscorr antara temperatur dan sunspots")
 
 # ╔═╡ 27734775-a2e1-451e-a7c2-b35633c3588a
+begin
+	p1=plot(temp,label="Rataan Temperatur")
+	plot!(sun,color=:green,label="Sunspots")
+	p2=plot(atemp,label="autocor rataan temperatur")
+	p3=plot(asun,label="autocor sunspots",color=:green)
+	p4=plot(ccf,color=:red,label="crosscorr")
+	plot(p1, p2, p3, p4, layout = (2, 2))
+end
 #see my github : https://github.com/utamadonny/BelajarJulia/tree/master/StatBase
 
 # ╔═╡ Cell order:
