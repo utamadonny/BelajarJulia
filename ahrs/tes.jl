@@ -1,8 +1,8 @@
-using Plots: label_to_string
-using CSV, Plots, DataFrames
+using CSV, Plots, DataFrames, PlotlyBase, Dates, StatsBase
 # cd("ahrs/")
-# dt= DataFrame(CSV.File("2021-07-02 08-47-47.csv"))
-dt = DataFrame(CSV.File("2021-07-08 22-03-03.csv"))
+# dt= DataFrame(CSV.File("2021-07-02 08-47-47.csiv"))
+# dt = DataFrame(CSV.File("2021-07-08 22-03-03.csv"))
+dt = DataFrame(CSV.File("2021-07-16 21-43-46.csv"))
 # dt = CSV.read("2021-07-02 08-47-47.csv",DataFrame)  #deprecated soon
 ## 
 select!(dt, Not([:"Orientation:",:"Column8",:"Column12",:"Column16",:"Column20"]))
@@ -21,10 +21,14 @@ plot(dt[:,:Time],dt[:,:roll],
 plot!(dt[:,:Time],dt[:,:pitch], label="pitch")
 plot!(dt[:,:Time],dt[:,:mroll], label= "mroll")
 plot!(dt[:,:Time],dt[:,:mpitch], label = "mpitch")
-plot!(dt[:,:Time],dt[:,:yaw],label ="yaw")
-plot!(dt[:,:Time],dt[:,:myaw],label ="myaw")
+plot(dt.Time,dt.yaw,label ="yaw")
+plot!(dt.Time,dt.myaw,label ="myaw",xticks=Time(0):Second(20):Time(0,33))
+##
+plot(dt.Time[11000:20000],dt.yaw[11000:20000],label ="yaw")
+plot!(dt.Time[11000:20000],dt.myaw[11000:20000],label ="myaw",xticks=Time(0):Second(20):Time(0,33))
+# dt.Time=Time.(dt.Time, DateFormat("H:M:S"))
 ## == Save Plots
-savefig("2021-07-08 22-03-03.html")
+Plots.savefig("2021-07-16 21-43-46(1).html")
 ## ===============debug===============
 typeof(dt[!,:Time])
 dt[end,:mpitch]
@@ -67,3 +71,8 @@ size(dt)
 select(dt, 1:7)
 dt[1,:]
 typeof(dt)
+
+## Compute RMSE/RMSD
+rmsd(dt.roll, dt.mroll)
+rmsd(dt.pitch, dt.mpitch)
+rmsd(dt.yaw[1:2000], dt.myaw[1:2000]) # all data will result more RMSD because 360/0 degree change
