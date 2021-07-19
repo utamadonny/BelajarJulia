@@ -3,6 +3,8 @@ using CSV, Plots, DataFrames, PlotlyBase, Dates, StatsBase
 # dt= DataFrame(CSV.File("2021-07-02 08-47-47.csiv"))
 # dt = DataFrame(CSV.File("2021-07-08 22-03-03.csv"))
 dt = DataFrame(CSV.File("2021-07-16 21-43-46.csv"))
+df = DataFrame(CSV.File("2021-07-16 21-43-46M.csv"))
+dx = DataFrame(CSV.File("2021-07-16 21-43-46M1.csv"))
 # dt = CSV.read("2021-07-02 08-47-47.csv",DataFrame)  #deprecated soon
 ## 
 select!(dt, Not([:"Orientation:",:"Column8",:"Column12",:"Column16",:"Column20"]))
@@ -16,20 +18,30 @@ delete!(dt, 1:26)
 plotly()
 # pyplot()
 # plotlyjs()
-plot(dt[:,:Time],dt[:,:roll],
-	label="roll")
-plot!(dt[:,:Time],dt[:,:pitch], label="pitch")
-plot!(dt[:,:Time],dt[:,:mroll], label= "mroll")
-plot!(dt[:,:Time],dt[:,:mpitch], label = "mpitch")
-plot(dt.Time,dt.yaw,label ="yaw")
-plot!(dt.Time,dt.myaw,label ="myaw",xticks=Time(0):Second(20):Time(0,33))
-##
+p=plot(dt[:,:Time],dt[:,:roll],
+	label="ϕ")
+plot!(dt[:,:Time],dt[:,:pitch], label="θ")
+plot!(dt[:,:Time],dt[:,:aroll], label= "arduinoϕ")
+plot!(dt[:,:Time],dt[:,:apitch], label ="arduinoθ")
+plot!(dt.Time,dt.yaw,label ="ψ")
+plot!(dt.Time,dt.ayaw,label ="arduinoψ")
+plot!(dt.Time,dx.mroll,label ="matlabϕ")
+plot!(dt.Time,dx.mpitch,label ="matlabθ")
+plot!(dt.Time,dx.myaw,label ="matlabψ")
+## =================Plot Data from Matlab sample 512 beta 1.2 ===============
+plot!(dt.Time,df.mroll,label ="matlabϕ")
+plot!(dt.Time,df.mpitch,label ="matlabθ")
+plot!(dt.Time,df.myaw,label ="matlabψ")
+##===================plot(dt.Time,df.)debug plot================
+xticks!(Time(0):Second(20):Time(0,33))
 plot(dt.Time[11000:20000],dt.yaw[11000:20000],label ="yaw")
 plot!(dt.Time[11000:20000],dt.myaw[11000:20000],label ="myaw",xticks=Time(0):Second(20):Time(0,33))
 # dt.Time=Time.(dt.Time, DateFormat("H:M:S"))
-## == Save Plots
+## == Save Plots=============
 Plots.savefig("2021-07-16 21-43-46(1).html")
-## ===============debug===============
+Plots.savefig("2021-07-16 21-43-46(1).png")
+# PlotlyBase.savefig(p,"s")
+## ===============debug2================
 typeof(dt[!,:Time])
 dt[end,:mpitch]
 names(dt)
@@ -75,4 +87,5 @@ typeof(dt)
 ## Compute RMSE/RMSD
 rmsd(dt.roll, dt.mroll)
 rmsd(dt.pitch, dt.mpitch)
+rmsd(dt.yaw, dt.myaw) # all data will result more RMSD because 360/0 degree change
 rmsd(dt.yaw[1:2000], dt.myaw[1:2000]) # all data will result more RMSD because 360/0 degree change
