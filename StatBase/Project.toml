@@ -1,0 +1,3 @@
+[deps]
+CorrNoise = "0374c0b2-85fe-5995-9aba-c71c9668af00"
+StableRNGs = "860ef19b-820b-49d6-a774-d7a799459cd3"

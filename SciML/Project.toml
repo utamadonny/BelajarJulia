@@ -1,0 +1,7 @@
+[deps]
+DataDrivenDiffEq = "2445eb08-9709-466a-b3fc-47e12bd697a2"
+DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
+GalacticOptim = "a75be94c-b780-496d-a8a9-0878b188d577"
+ModelingToolkit = "961ee093-0014-501f-94e3-6117800e7a78"
+NBodySimulator = "0e6f8da7-a7fc-5c8b-a220-74e902c310f9"
+Quadrature = "67601950-bd08-11e9-3c89-fd23fb4432d2"

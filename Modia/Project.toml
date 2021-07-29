@@ -1,0 +1,4 @@
+[deps]
+Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+Modia = "cb905087-75eb-5f27-8515-1ce0ec8e839e"
+ModiaPlot = "951137b1-a5aa-4c03-8412-295bfee9a204"

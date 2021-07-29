@@ -1,0 +1,8 @@
+[deps]
+ControlSystemIdentification = "3abffc1c-5106-53b7-b354-a47bfc086282"
+ControlSystems = "a6e380b2-a6ca-5380-bf3e-84a91bcd477e"
+ElectricalEngineering = "84e62fa8-74a0-5990-9214-c45bd74ae4d7"
+Modia = "cb905087-75eb-5f27-8515-1ce0ec8e839e"
+ModiaPlot = "951137b1-a5aa-4c03-8412-295bfee9a204"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
